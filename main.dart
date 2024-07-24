@@ -25,9 +25,16 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
   bool passwordVisibility = false;
+  bool rememberMe = false;
   void togglePasswordVisibility() {
     setState(() {
       passwordVisibility = !passwordVisibility;
+    });
+  }
+
+  void toggleRememberMe(bool? value) {
+    setState(() {
+      rememberMe = value ?? false;
     });
   }
 
@@ -35,7 +42,7 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('Hai, Lorem Ipsum',
+            title: Text('Signin to MyAPP',
                 style: GoogleFonts.firaSans(fontSize: 20)),
             backgroundColor: const Color.fromARGB(255, 31, 210, 213)),
         body: Container(
@@ -58,11 +65,17 @@ class _MyWidgetState extends State<MyWidget> {
                             fontSize: 30, fontWeight: FontWeight.normal),
                       ),
                       const SizedBox(height: 20),
-                      const SizedBox(
+                      SizedBox(
                         width: 300,
                         child: TextField(
                           // textAlign: TextAlign.center,
-                          decoration: InputDecoration(hintText: 'Username'),
+                          decoration: InputDecoration(
+                            label: Text(
+                              'Username',
+                              style: GoogleFonts.firaSans(
+                                  color: Colors.black, fontSize: 17),
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -71,12 +84,16 @@ class _MyWidgetState extends State<MyWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: 200,
+                              width: 195,
                               child: TextField(
-                                // textAlign: TextAlign.center,
-                                decoration:
-                                    const InputDecoration(hintText: 'Password'),
-                                obscureText: !passwordVisibility,
+                                obscureText: passwordVisibility,
+                                decoration: InputDecoration(
+                                  label: Text(
+                                    'Password',
+                                    style: GoogleFonts.firaSans(
+                                        color: Colors.black, fontSize: 17),
+                                  ),
+                                ),
                               ),
                             ),
                             ElevatedButton.icon(
@@ -98,6 +115,32 @@ class _MyWidgetState extends State<MyWidget> {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Checkbox(
+                              value: rememberMe, onChanged: toggleRememberMe),
+                          Text(
+                            'Remember Me',
+                            style: GoogleFonts.firaSans(
+                                color: Colors.black, fontSize: 18),
+                          ),
+                          const SizedBox(
+                            width: 70,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Text(
+                              'Forgot Password?',
+                              style: GoogleFonts.firaSans(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                             iconColor: Colors.black,
@@ -109,7 +152,9 @@ class _MyWidgetState extends State<MyWidget> {
                         label: Text(
                           'Login',
                           style: GoogleFonts.firaSans(
-                              color: Colors.black, fontSize: 18),
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
                         ),
                         icon: const Icon(Icons.login),
                       ),
@@ -162,22 +207,32 @@ class _MyWidgetState extends State<MyWidget> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Forgot Password?',
-                            style: GoogleFonts.firaSans(
-                                color: Colors.black,
-                                fontSize: 18,
-                                decoration: TextDecoration.underline),
-                          ),
+                      Container(
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              "Don't have an account?",
+                              style: GoogleFonts.firaSans(
+                                  color: Colors.black, fontSize: 18),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              "Signup",
+                              style: GoogleFonts.firaSans(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ));
